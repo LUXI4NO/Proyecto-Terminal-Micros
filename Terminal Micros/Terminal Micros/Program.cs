@@ -1,4 +1,5 @@
-﻿using System;
+using System;
+using System.Collections;
 
 namespace Terminal_Micros
 {
@@ -9,6 +10,10 @@ namespace Terminal_Micros
             Terminal terminal = new Terminal("Terminal Luciano");
 
             Console.WriteLine("CARGA DE MICROS");
+            terminal.ListaMicros.Add(new Micros(1, "ABC123", 5000, "Salta", 10, 8));
+			terminal.ListaMicros.Add(new Micros(2, "DEF456", 7000, "Córdoba", 15, 5));
+			terminal.ListaMicros.Add(new Micros(3, "GHI789", 6000, "Salta", 12, 7));
+
             bool continuar = true;
 
             while (continuar)
@@ -67,6 +72,23 @@ namespace Terminal_Micros
 
             Console.WriteLine("\nPresione una tecla para salir...");
             Console.ReadKey();
+        }
+    }
+    
+    // FUNCION RECURSIVA fuera de la clase Program
+    public static class Utilidades
+    {
+        public static void MostrarMicrosASalta(ArrayList lista, int indice)
+        {
+            if (indice >= lista.Count) return;
+
+            Micros m = (Micros)lista[indice];
+            if (m.Destino.ToLower() == "salta")
+            {
+                Console.WriteLine("Micro a Salta → Código: " + m.Codigo + ", Patente: " + m.Patente + ", Precio: " + m.Precio_pasaje);
+            }
+
+            MostrarMicrosASalta(lista, indice + 1);
         }
     }
 }
